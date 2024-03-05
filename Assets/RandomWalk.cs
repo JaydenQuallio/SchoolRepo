@@ -8,12 +8,13 @@ public class RandomWalk : MonoBehaviour
 
 	float timeTillNext = .25f, currentTime;
 	
+	Vector3 lastPosition = new();
 	// Update is called once per frame
 	void Update()
 	{
 		currentTime += Time.deltaTime;
 		// If the character has moved and the audio is not currently playing
-		if (!audioSource.isPlaying && currentTime > timeTillNext)
+		if (!audioSource.isPlaying && transform.position != lastPosition && currentTime > timeTillNext)
 		{
 			// Randomly change the playback speed a small amount
 			audioSource.pitch = Random.Range(0.9f, 1.2f);
@@ -23,6 +24,6 @@ public class RandomWalk : MonoBehaviour
 			audioSource.Play();
 			currentTime = 0f;
 		}
-
+		lastPosition = transform.position;
 	}
 }
